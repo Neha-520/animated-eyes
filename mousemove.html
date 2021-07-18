@@ -1,21 +1,80 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
 
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=devide-width,initial-scale=1.0">
 </head>
+
 <body>
-   <div class="center-div">
-      <div class="face">
-          <div class="eyes">
-              <div class="eye">
-                  <div class="pupil"></div>
-              </div>
-              <div class="eye">
-                <div class="pupil"></div>
+    <div class="center-div">
+        <div class="face">
+            <div class="eyes">
+                <div class="eye">
+                    <div class="pupil"></div>
+                </div>
+                <div class="eye">
+                    <div class="pupil"></div>
+                </div>
             </div>
-          </div>
-      </div>
-   </div>
+        </div>
+        <br/><br/>
+        <div style="text-align: center;">
+            <h1>I am watching you!</h1>
+        </div>
+    </div>
+    <script>
+
+        let pupils = document.getElementsByClassName('pupil');
+        let pupilsArr = Array.from(pupils);
+
+        let pupilStartPoint = -100;
+        let pupilRange = 200;
+
+        //mouse X position
+        let mouseXStartPoint = 0;
+        let mouseXEndPoint = window.innerWidth;
+        let currentXPosition = 0;
+        let fracXValue = 0;
+
+        //mouse Y position
+        let mouseYEndPoint = window.innerHeight;
+        let currentYPosition = 0;
+        let fracYValue = 0;
+
+
+
+        let mouseXRange = mouseXEndPoint - mouseXStartPoint;
+
+        const mouseMove = (event) => {
+            currentXPosition = event.clientX - mouseXStartPoint;
+            fracXValue = currentXPosition / mouseXRange;
+
+            currentYPosition = event.clientY;
+            fracYValue = currentYPosition / mouseYEndPoint;
+
+            let pupilXCurrentPosition = pupilStartPoint + (fracXValue * pupilRange);
+            let pupilYCurrentPosition = pupilStartPoint + (fracYValue * pupilRange);
+
+            pupilsArr.forEach((currPupil) => {
+                currPupil.style.transform = `translate(${pupilXCurrentPosition}px,${pupilYCurrentPosition}px)`;
+            })
+
+        }
+         
+        const windowResize =(event)=>{
+           mouseXEndPoint = window.innerWidth;
+           mouseXRange = mouseXEndPoint - mouseXStartPoint;
+           mouseYEndPoint = window.innerHeight;
+        }
+
+        window.addEventListener('mousemove', mouseMove);
+
+        window.addEventListener('resize', windowResize);
+    </script>
 
 </body>
+
 </html>
