@@ -1,2 +1,3 @@
-# animated eyes
+# animated eyes in vanilla JS
+
  
